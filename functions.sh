@@ -66,7 +66,7 @@ clean() {
 # Returns:
 #     None
 update_indexes() {
-    chroot_exec apt-get update
+    DEBIAN_FRONTEND=noninteractive chroot_exec apt-get update -q
 }
 
 # Upgrades the chroot environment.
@@ -88,7 +88,7 @@ upgrade() {
 # Returns:
 #     None
 install_packages() {
-    chroot_exec apt-get -y ${PM_OPTIONS} install $*
+    DEBIAN_FRONTEND=noninteractive chroot_exec apt-get -y -q -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ${PM_OPTIONS} install $*
 }
 
 # Removes the specified packages with their configuration files from the chroot
